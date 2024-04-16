@@ -10,6 +10,7 @@ import { PutTodoRequest } from '@/features/todo/types/types'
 // MUI
 import Checkbox from '@mui/material/Checkbox'
 import Box from '@mui/material/Box'
+import { withStyles } from '@mui/material'
 
 interface CompletedCheckBoxProps {
   todo: Todo
@@ -35,7 +36,13 @@ export default function CompletedCheckBox(props: CompletedCheckBoxProps) {
 
   return (
     <Box>
-      <Checkbox checked={completed} onChange={handleChange} />
+      <Checkbox
+        className={checkBoxStyle}
+        checked={completed}
+        onChange={handleChange}
+      />
     </Box>
   )
 }
+
+const checkBoxStyle = `hover:text-white`
