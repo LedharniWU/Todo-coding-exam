@@ -1,8 +1,5 @@
 import axios from 'axios'
-
-type DeleteTodoResponse = {
-  message: string
-}
+import { DeleteTodoResponse } from '../types/types'
 
 export async function DeleteTodo(
   id: string,

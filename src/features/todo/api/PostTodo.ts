@@ -1,14 +1,5 @@
 import axios from 'axios'
-
-type PostTodoRequest = {
-  title: string
-}
-
-type PostTodoResponse = {
-  id: number
-  title: string
-  completed: boolean
-}
+import { PostTodoRequest, PostTodoResponse } from '../types/types'
 
 export async function PostTodo(
   params: PostTodoRequest,

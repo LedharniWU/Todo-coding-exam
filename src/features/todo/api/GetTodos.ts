@@ -1,10 +1,5 @@
 import axios from 'axios'
-
-type Todo = {
-  id: number
-  title: string
-  completed: number
-}
+import { Todo } from '../types/types'
 
 type TodosResponse = Todo[]
 

@@ -1,19 +1,23 @@
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
-import NewTodoButton from '@/components/NewTodoButton'
 import { useEffect, useState } from 'react'
-import { GetTodos } from '@/features/todo/api/GetTodos'
-import CircularProgress from '@mui/material/CircularProgress'
+
+// MUI
 import Box from '@mui/material/Box'
+import CircularProgress from '@mui/material/CircularProgress'
+
+// Components
+import NewTodoButton from '@/components/NewTodoButton'
+import TodoListView from '@/components/TodoListView'
+
+// API
+import { GetTodos } from '@/features/todo/api/GetTodos'
+
+// Types
+import { Todo } from '@/features/todo/types/types'
 
 const inter = Inter({ subsets: ['latin'] })
-
-type Todo = {
-  id: number
-  title: string
-  completed: number
-}
 
 export default function Home() {
   const [todoList, setTodoList] = useState<Todo[] | undefined>()

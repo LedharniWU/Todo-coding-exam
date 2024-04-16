@@ -5,14 +5,11 @@ import Modal from '@mui/material/Modal'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import { PostTodo } from '@/features/todo/api/PostTodo'
+import { PostTodoRequest, PostTodoResponse } from '@/features/todo/types/types'
 
 type CreateNewTodoModelProps = {
   modelSwitch: boolean
   onClickModelSwitch: () => void
-}
-
-type PostTodoRequest = {
-  title: string
 }
 
 export default function CreateNewTodoModel(props: CreateNewTodoModelProps) {
@@ -36,7 +33,8 @@ export default function CreateNewTodoModel(props: CreateNewTodoModelProps) {
     if (newTodoTitle === '') {
       setAttemptedSubmit(true)
     } else {
-      const reponse = await PostTodo({ title: newTodoTitle })
+      const request: PostTodoRequest = { title: newTodoTitle }
+      const reponse = await PostTodo(request)
 
       onClickModelSwitch()
       setAttemptedSubmit(false)

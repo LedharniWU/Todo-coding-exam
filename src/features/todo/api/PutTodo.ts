@@ -1,15 +1,5 @@
 import axios from 'axios'
-
-type PutTodoRequest = {
-  title: string
-  completed: boolean
-}
-
-type PutTodoResponse = {
-  message: string
-  id: string
-  changes: number
-}
+import { PutTodoRequest, PutTodoResponse } from '../types/types'
 
 export async function PutTodo(
   params: PutTodoRequest,
