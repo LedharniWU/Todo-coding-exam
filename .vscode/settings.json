@@ -11,13 +11,16 @@
       "react"
     ],
     "[javascript]": {
-      "editor.formatOnSave": false
-    },
-    "[react]": {
       "editor.formatOnSave": true
     },
     "[typescript]": {
-      "editor.formatOnSave": true
+        "editor.formatOnSave": true
+    },
+    "[javascriptreact]": {
+        "editor.formatOnSave": true
+    },
+    "[typescriptreact]": {
+        "editor.formatOnSave": true
     },
     "editor.tabSize": 2
   }
