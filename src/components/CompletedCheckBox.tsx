@@ -1,10 +1,15 @@
-import React, { ChangeEvent, useState } from 'react'
-import Checkbox from '@mui/material/Checkbox'
-import { Todo } from '@/features/todo/types/types'
-import { Box } from '@mui/material'
+import { useState } from 'react'
 
+// API
 import { PutTodo } from '@/features/todo/api/PutTodo'
-import { PutTodoRequest, PutTodoResponse } from '@/features/todo/types/types'
+
+// Types
+import { Todo } from '@/features/todo/types/types'
+import { PutTodoRequest } from '@/features/todo/types/types'
+
+// MUI
+import Checkbox from '@mui/material/Checkbox'
+import Box from '@mui/material/Box'
 
 interface CompletedCheckBoxProps {
   todo: Todo

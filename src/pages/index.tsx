@@ -34,6 +34,17 @@ export default function Home() {
     })
   }
 
+  const updateTodoById = (todoId: number, newTitle: string) => {
+    setTodoList((prevTodos) => {
+      return prevTodos.map((todo) => {
+        if (todo.id === todoId) {
+          return { ...todo, title: newTitle }
+        }
+        return todo
+      })
+    })
+  }
+
   useEffect(() => {
     const GetTodosFromServer = async () => {
       const todosResponse = await GetTodos()
@@ -73,6 +84,7 @@ export default function Home() {
               <TodoListView
                 todoList={todoList}
                 deleteTodofromViewList={deleteTodofromViewList}
+                updateTodoById={updateTodoById}
               />
             </Box>
           </>

@@ -1,85 +1,86 @@
-import { useState, ChangeEvent } from 'react'
+import { ChangeEvent, useState } from 'react'
 
 // API
-import { PostTodo } from '@/features/todo/api/PostTodo'
+import { PutTodo } from '@/features/todo/api/PutTodo'
 
 // Types
-import { PostTodoRequest, Todo } from '@/features/todo/types/types'
+import { PutTodoRequest, Todo } from '@/features/todo/types/types'
 
-// Mui
+// MUI
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 
-interface CreateNewTodoModelProps {
+interface EditTodoModelProps {
+  todo: Todo
   modelSwitch: boolean
   onClickModelSwitch: () => void
-  addTodoToViewList: (newTodo: Todo) => void
+  updateTodoById: (todoId: number, newTitle: string) => void
 }
 
-export default function CreateNewTodoModel(props: CreateNewTodoModelProps) {
-  const { modelSwitch, onClickModelSwitch, addTodoToViewList } = props
+export default function EditTodoModel(props: EditTodoModelProps) {
+  const { modelSwitch, onClickModelSwitch, todo, updateTodoById } = props
 
-  const [newTodoTitle, setNewTodoTitle] = useState('')
+  const { id, title, completed } = todo
+
+  const [newTodoTitle, setNewTodoTitle] = useState(title)
 
   const [attemptedSubmit, setAttemptedSubmit] = useState(false)
 
-  const handleCancel = () => {
-    onClickModelSwitch()
-    setNewTodoTitle('')
-    setAttemptedSubmit(false)
-  }
+  const [helpMessage, setHelpMessage] = useState('')
 
   const handleChangeNewTodoTitle = (event: ChangeEvent<HTMLInputElement>) => {
     setNewTodoTitle(event.target.value)
   }
 
-  const handleCreateTodo = async () => {
+  const handleEditTodo = async () => {
     if (newTodoTitle === '') {
       setAttemptedSubmit(true)
+      setHelpMessage('Please input title')
+    } else if (newTodoTitle === title) {
+      setAttemptedSubmit(true)
+      setHelpMessage('Nothing To Change')
     } else {
-      const request: PostTodoRequest = { title: newTodoTitle }
-      const response = await PostTodo(request)
+      const request: PutTodoRequest = {
+        title: newTodoTitle,
+        completed: completed,
+      }
+      const response = await PutTodo(id, request)
+
       if (response) {
-        const todo: Todo = {
-          id: response.id,
-          title: response.title,
-          completed: response.completed ? 1 : 0,
-        }
-        addTodoToViewList(todo)
+        updateTodoById(id, newTodoTitle)
       }
 
       onClickModelSwitch()
       setAttemptedSubmit(false)
     }
-    setNewTodoTitle('')
+  }
+
+  const handleCancel = () => {
+    onClickModelSwitch()
+    setNewTodoTitle(title)
+    setAttemptedSubmit(false)
   }
 
   return (
     <Modal open={modelSwitch} onClose={onClickModelSwitch}>
       <Box className={modalBoxStyle}>
-        <Typography variant="h6" component="h2">
-          Create New TODO
-        </Typography>
+        <Typography variant="h6" component="h2"></Typography>
         <Box className={inputBoxStyle}>
           <TextField
             {...inputStyle}
             label="Title"
+            defaultValue={title}
             variant="outlined"
-            value={newTodoTitle}
             onChange={handleChangeNewTodoTitle}
-            helperText={attemptedSubmit ? 'Please input title' : ''}
+            helperText={attemptedSubmit ? helpMessage : ''}
           />
         </Box>
         <Box className={actionBoxStyle}>
-          <Button
-            onClick={handleCreateTodo}
-            variant="contained"
-            color="primary"
-          >
-            Create
+          <Button onClick={handleEditTodo} variant="contained" color="primary">
+            Edit
           </Button>
           <Button onClick={handleCancel} variant="outlined" color="secondary">
             Cancel
@@ -92,24 +93,23 @@ export default function CreateNewTodoModel(props: CreateNewTodoModelProps) {
 
 // Style Class
 const modalBoxStyle = `
-    absolute 
-    top-1/2 
-    left-1/2 
-    -translate-x-1/2 
-    -translate-y-1/2
-    w-96 
-    border-2 
-    border-black 
-    shadow-xl p-4
-    bg-mainBackgroundColor 
-    border-columnBackgroundColor 
-    rounded-lg 
-    ring-rose-500
-  `
-
+  absolute 
+  top-1/2 
+  left-1/2 
+  -translate-x-1/2 
+  -translate-y-1/2
+  w-96 
+  border-2 
+  border-black 
+  shadow-xl p-4
+  bg-mainBackgroundColor 
+  border-columnBackgroundColor 
+  rounded-lg 
+  ring-rose-500
+`
 const inputBoxStyle = `
-    mt-4
-  `
+  mt-4
+`
 
 const inputStyle = {
   className: 'w-full text-white',
