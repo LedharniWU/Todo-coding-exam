@@ -54,7 +54,12 @@ export default function Home() {
           </Box>
         ) : (
           <>
-            <NewTodoButton />
+            <Box>
+              <NewTodoButton />
+            </Box>
+            <Box sx={{ mt: 2 }}>
+              <TodoListView todoList={todoList} />
+            </Box>
           </>
         )}
       </main>
