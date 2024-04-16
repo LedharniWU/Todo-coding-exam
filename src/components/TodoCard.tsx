@@ -3,6 +3,7 @@ import Trashicon from '@/icons/Trashicon'
 import { useState } from 'react'
 
 import { Box } from '@mui/material'
+import CompletedCheckBox from './CompletedCheckBox'
 
 interface TodoCardProps {
   todo: Todo
@@ -50,6 +51,8 @@ export default function TodoCard({ todo, deleteTodo }: TodoCardProps) {
         setMouseIsOver(false)
       }}
     >
+      <CompletedCheckBox todo={todo} />
+      {todo.id}
       {todo.title}
       {mouseIsOver && (
         <button

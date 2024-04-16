@@ -2,11 +2,12 @@ import axios from 'axios'
 import { PutTodoRequest, PutTodoResponse } from '../types/types'
 
 export async function PutTodo(
+  id: number,
   params: PutTodoRequest,
 ): Promise<PutTodoResponse | undefined> {
   try {
     const rawResponse = await axios.put<PutTodoResponse | undefined>(
-      'http://localhost:3000/api/todos',
+      `http://localhost:3000/api/todos/${id}`,
       params,
     )
 

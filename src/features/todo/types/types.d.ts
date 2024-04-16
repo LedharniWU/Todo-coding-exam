@@ -10,7 +10,7 @@ export type PostTodoRequest = {
 
 export type PutTodoRequest = {
   title: string
-  completed: boolean
+  completed: number
 }
 
 export type PutTodoResponse = {
