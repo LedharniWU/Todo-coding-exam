@@ -48,6 +48,7 @@ export default function TodoListView(props: TodoListViewProps) {
     p-2
     overflow-x-hidden
     overflow-y-auto
+    text-center
   `
 
   return (
@@ -55,13 +56,21 @@ export default function TodoListView(props: TodoListViewProps) {
       <Box className={titleBoxStyle}>TodoListView</Box>
 
       <Box className={todoCardBoxStyle}>
-        {todoList.map((todo: Todo) => (
-          <TodoCard
-            key={todo.id}
-            todo={todo}
-            deleteTodofromViewList={deleteTodofromViewList}
-          />
-        ))}
+        {todoList.length > 0 ? (
+          <>
+            {todoList.map((todo: Todo) => (
+              <TodoCard
+                key={todo.id}
+                todo={todo}
+                deleteTodofromViewList={deleteTodofromViewList}
+              />
+            ))}
+          </>
+        ) : (
+          <>
+            <p>No Todo found. Please create a new Todo.</p>
+          </>
+        )}
       </Box>
     </Box>
   )
