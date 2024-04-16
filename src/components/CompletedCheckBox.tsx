@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useState } from 'react'
 import Checkbox from '@mui/material/Checkbox'
 import { Todo } from '@/features/todo/types/types'
+import { Box } from '@mui/material'
 
 import { PutTodo } from '@/features/todo/api/PutTodo'
 import { PutTodoRequest, PutTodoResponse } from '@/features/todo/types/types'
@@ -27,5 +28,9 @@ export default function CompletedCheckBox(props: CompletedCheckBoxProps) {
     const reponse = await PutTodo(todo.id, request)
   }
 
-  return <Checkbox checked={completed} onChange={handleChange} />
+  return (
+    <Box>
+      <Checkbox checked={completed} onChange={handleChange} />
+    </Box>
+  )
 }

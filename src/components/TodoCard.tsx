@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { Box } from '@mui/material'
 import CompletedCheckBox from './CompletedCheckBox'
 import { DeleteTodo } from '@/features/todo/api/DeleteTodo'
+import Stack from '@mui/material/Stack'
 
 interface TodoCardProps {
   todo: Todo
@@ -17,11 +18,17 @@ export default function TodoCard({
 }: TodoCardProps) {
   const [mouseIsOver, setMouseIsOver] = useState(false)
 
+  const onClickDelete = async (todoId: number) => {
+    const response = await DeleteTodo(todoId)
+    if (response) {
+      deleteTodofromViewList(todoId)
+    }
+  }
+
   // Style Class
   const topBoxStyle = `
     bg-mainBackgroundColor 
     p-2.5 
-    h-[50px] 
     min-h-[50px] 
     items-center 
     flex text-left 
@@ -45,12 +52,9 @@ export default function TodoCard({
     py-2
   `
 
-  const onClickDelete = async (todoId: number) => {
-    const response = await DeleteTodo(todoId)
-    if (response) {
-      deleteTodofromViewList(todoId)
-    }
-  }
+  const titleStyle = `
+    px-2
+  `
 
   return (
     <Box
@@ -63,8 +67,8 @@ export default function TodoCard({
       }}
     >
       <CompletedCheckBox todo={todo} />
-      {todo.id}
-      {todo.title}
+      <Box>ID:{todo.id}</Box>
+      <Box className={titleStyle}>{todo.title}</Box>
       {mouseIsOver && (
         <button
           onClick={() => onClickDelete(todo.id)}
