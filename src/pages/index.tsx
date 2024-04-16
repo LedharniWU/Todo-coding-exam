@@ -28,6 +28,12 @@ export default function Home() {
     })
   }
 
+  const deleteTodofromViewList = (todoId: number) => {
+    setTodoList((prevTodos) => {
+      return prevTodos.filter((todo) => todo.id !== todoId)
+    })
+  }
+
   useEffect(() => {
     const GetTodosFromServer = async () => {
       const todosResponse = await GetTodos()
@@ -64,7 +70,10 @@ export default function Home() {
               <NewTodoButton addTodoToViewList={addTodoToViewList} />
             </Box>
             <Box sx={{ mt: 2 }}>
-              <TodoListView todoList={todoList} />
+              <TodoListView
+                todoList={todoList}
+                deleteTodofromViewList={deleteTodofromViewList}
+              />
             </Box>
           </>
         )}

@@ -11,15 +11,11 @@ import { Box } from '@mui/material'
 
 type TodoListViewProps = {
   todoList: Todo[]
+  deleteTodofromViewList: (todoId: number) => void
 }
 
 export default function TodoListView(props: TodoListViewProps) {
-  const { todoList } = props
-
-  //delete function
-  const onClickDelete = (todoId: number) => {
-    console.log('Delete Todo ID:', todoId)
-  }
+  const { todoList, deleteTodofromViewList } = props
 
   // Style Class
   const topBoxStyle = `
@@ -60,7 +56,11 @@ export default function TodoListView(props: TodoListViewProps) {
 
       <Box className={todoCardBoxStyle}>
         {todoList.map((todo: Todo) => (
-          <TodoCard key={todo.id} todo={todo} deleteTodo={onClickDelete} />
+          <TodoCard
+            key={todo.id}
+            todo={todo}
+            deleteTodofromViewList={deleteTodofromViewList}
+          />
         ))}
       </Box>
     </Box>

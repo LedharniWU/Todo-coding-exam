@@ -2,7 +2,7 @@ import axios from 'axios'
 import { DeleteTodoResponse } from '../types/types'
 
 export async function DeleteTodo(
-  id: string,
+  id: number,
 ): Promise<DeleteTodoResponse | undefined> {
   try {
     const rawResponse = await axios.delete(

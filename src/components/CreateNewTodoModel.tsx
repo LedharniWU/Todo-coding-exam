@@ -35,10 +35,16 @@ export default function CreateNewTodoModel(props: CreateNewTodoModelProps) {
       setAttemptedSubmit(true)
     } else {
       const request: PostTodoRequest = { title: newTodoTitle }
-      const reponse = await PostTodo(request)
-      if (reponse) {
-        addTodoToViewList(reponse)
+      const response = await PostTodo(request)
+      if (response) {
+        const todo: Todo = {
+          id: response.id,
+          title: response.title,
+          completed: response.completed ? 1 : 0,
+        }
+        addTodoToViewList(todo)
       }
+
       onClickModelSwitch()
       setAttemptedSubmit(false)
     }
