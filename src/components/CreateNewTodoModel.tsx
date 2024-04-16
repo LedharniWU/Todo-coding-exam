@@ -5,15 +5,16 @@ import Modal from '@mui/material/Modal'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import { PostTodo } from '@/features/todo/api/PostTodo'
-import { PostTodoRequest, PostTodoResponse } from '@/features/todo/types/types'
+import { PostTodoRequest, Todo } from '@/features/todo/types/types'
 
 type CreateNewTodoModelProps = {
   modelSwitch: boolean
   onClickModelSwitch: () => void
+  addTodoToViewList: (newTodo: Todo) => void
 }
 
 export default function CreateNewTodoModel(props: CreateNewTodoModelProps) {
-  const { modelSwitch, onClickModelSwitch } = props
+  const { modelSwitch, onClickModelSwitch, addTodoToViewList } = props
 
   const [newTodoTitle, setNewTodoTitle] = useState('')
 
@@ -35,7 +36,9 @@ export default function CreateNewTodoModel(props: CreateNewTodoModelProps) {
     } else {
       const request: PostTodoRequest = { title: newTodoTitle }
       const reponse = await PostTodo(request)
-
+      if (reponse) {
+        addTodoToViewList(reponse)
+      }
       onClickModelSwitch()
       setAttemptedSubmit(false)
     }

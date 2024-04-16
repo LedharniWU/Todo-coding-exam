@@ -1,11 +1,11 @@
 import axios from 'axios'
-import { PostTodoRequest, PostTodoResponse } from '../types/types'
+import { PostTodoRequest, Todo } from '../types/types'
 
 export async function PostTodo(
   params: PostTodoRequest,
-): Promise<PostTodoResponse | undefined> {
+): Promise<Todo | undefined> {
   try {
-    const rawResponse = await axios.post<PostTodoResponse | undefined>(
+    const rawResponse = await axios.post<Todo | undefined>(
       'http://localhost:3000/api/todos',
       params,
     )

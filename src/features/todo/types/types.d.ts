@@ -8,12 +8,6 @@ export type PostTodoRequest = {
   title: string
 }
 
-export type PostTodoResponse = {
-  id: number
-  title: string
-  completed: boolean
-}
-
 export type PutTodoRequest = {
   title: string
   completed: boolean

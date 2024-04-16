@@ -2,8 +2,15 @@ import Plusicon from '@/icons/Plusicon'
 import { useState } from 'react'
 
 import CreateNewTodoModel from './CreateNewTodoModel'
+import { Todo } from '@/features/todo/types/types'
 
-export default function NewTodoButton() {
+interface NewTodoButtonProps {
+  addTodoToViewList: (newTodo: Todo) => void
+}
+
+export default function NewTodoButton(props: NewTodoButtonProps) {
+  const { addTodoToViewList } = props
+
   const [modelSwitch, setModelSwitch] = useState(false)
 
   const onClickModelSwitch = () => {
@@ -36,6 +43,7 @@ export default function NewTodoButton() {
       <CreateNewTodoModel
         modelSwitch={modelSwitch}
         onClickModelSwitch={onClickModelSwitch}
+        addTodoToViewList={addTodoToViewList}
       />
     </div>
   )

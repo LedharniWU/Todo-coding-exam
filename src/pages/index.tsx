@@ -20,7 +20,13 @@ import { Todo } from '@/features/todo/types/types'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  const [todoList, setTodoList] = useState<Todo[] | undefined>()
+  const [todoList, setTodoList] = useState<Todo[]>([])
+
+  const addTodoToViewList = (newTodo: Todo) => {
+    setTodoList((prevTodos) => {
+      return [...prevTodos, newTodo]
+    })
+  }
 
   useEffect(() => {
     const GetTodosFromServer = async () => {
@@ -55,7 +61,7 @@ export default function Home() {
         ) : (
           <>
             <Box>
-              <NewTodoButton />
+              <NewTodoButton addTodoToViewList={addTodoToViewList} />
             </Box>
             <Box sx={{ mt: 2 }}>
               <TodoListView todoList={todoList} />
