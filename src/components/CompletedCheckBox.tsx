@@ -19,7 +19,7 @@ export default function CompletedCheckBox(props: CompletedCheckBoxProps) {
   const { todo } = props
 
   const [completed, setCompleted] = useState(
-    todo.completed === 0 ? false : true
+    todo.completed === 0 ? false : true,
   )
 
   const handleChange = async () => {

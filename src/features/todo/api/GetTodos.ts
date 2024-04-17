@@ -6,7 +6,7 @@ type TodosResponse = Todo[]
 export async function GetTodos(): Promise<TodosResponse | errorMessage> {
   try {
     const rawResponse = await axios.get<TodosResponse>(
-      'http://localhost:3000/api/todos'
+      'http://localhost:3000/api/todos',
     )
 
     return rawResponse.data

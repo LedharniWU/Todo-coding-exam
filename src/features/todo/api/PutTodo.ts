@@ -3,12 +3,12 @@ import { PutTodoRequest, PutTodoResponse, errorMessage } from '../types/types'
 
 export async function PutTodo(
   id: number,
-  params: PutTodoRequest
+  params: PutTodoRequest,
 ): Promise<PutTodoResponse | errorMessage> {
   try {
     const rawResponse = await axios.put<PutTodoResponse>(
       `http://localhost:3000/api/todos/${id}`,
-      params
+      params,
     )
 
     return rawResponse.data

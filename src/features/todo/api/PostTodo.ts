@@ -2,12 +2,12 @@ import axios from 'axios'
 import { PostTodoRequest, Todo, errorMessage } from '../types/types'
 
 export async function PostTodo(
-  params: PostTodoRequest
+  params: PostTodoRequest,
 ): Promise<Todo | errorMessage> {
   try {
     const rawResponse = await axios.post<Todo>(
       'http://localhost:3000/api/todos',
-      params
+      params,
     )
 
     return rawResponse.data

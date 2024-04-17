@@ -33,7 +33,7 @@ export default function TodoListView(props: TodoListViewProps) {
 
   const handleSnackbarClose = (
     event: React.SyntheticEvent | Event,
-    reason?: string
+    reason?: string,
   ) => {
     if (reason === 'clickaway') {
       return

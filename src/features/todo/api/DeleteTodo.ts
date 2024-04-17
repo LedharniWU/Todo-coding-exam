@@ -2,11 +2,11 @@ import axios from 'axios'
 import { DeleteTodoResponse, errorMessage } from '../types/types'
 
 export async function DeleteTodo(
-  id: number
+  id: number,
 ): Promise<DeleteTodoResponse | errorMessage> {
   try {
     const rawResponse = await axios.delete(
-      `http://localhost:3000/api/todos/${id}`
+      `http://localhost:3000/api/todos/${id}`,
     )
 
     return rawResponse.data
