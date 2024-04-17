@@ -48,7 +48,7 @@ export default function Home() {
   useEffect(() => {
     const GetTodosFromServer = async () => {
       const todosResponse = await GetTodos()
-      if (todosResponse != undefined) {
+      if (todosResponse && !('errorMessage' in todosResponse)) {
         setTodoList(todosResponse)
       }
     }
