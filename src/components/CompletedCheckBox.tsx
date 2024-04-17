@@ -44,4 +44,4 @@ export default function CompletedCheckBox(props: CompletedCheckBoxProps) {
   )
 }
 
-const checkBoxStyle = `hover:text-white`
+const checkBoxStyle = `text-blue-500 hover:text-lime-300`
