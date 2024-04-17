@@ -22,17 +22,51 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
   const [todoList, setTodoList] = useState<Todo[]>([])
 
+  /**
+   * TodoListに新しいTODOを追加して、
+   * 更新されたTodoListを返します。
+   *
+   * @param newTodo - 追加する新しいTodoオブジェクト
+   * @returns 更新されたTodoList: Todo[]
+   * @remarks
+   * レンダリングルート:
+   * index.tsx -> NewTodoButton.tsx -> CreateNewTodoModel.tsx
+   */
+
   const addTodoToViewList = (newTodo: Todo) => {
     setTodoList((prevTodos) => {
       return [...prevTodos, newTodo]
     })
   }
 
+  /**
+   * 指定されたTodoのIDを使用してTodoListからTodoを削除し、
+   * 更新されたTodoListを返します。
+   *
+   * @param todoId - 削除するTodoのID
+   * @returns 更新されたTodoList: Todo[]
+   * @remarks
+   * レンダリングルート:
+   * index.tsx -> TodoListView.tsx -> TodoCard.tsx
+   */
+
   const deleteTodofromViewList = (todoId: number) => {
     setTodoList((prevTodos) => {
       return prevTodos.filter((todo) => todo.id !== todoId)
     })
   }
+
+  /**
+   * 指定されたTodoのIDを使用してTodoList内でTodoを検索し、
+   * タイトルを変更した更新されたTodoListを返します。
+   *
+   * @param todoId - 変更するTodoのID
+   * @param newTitle - 新しいタイトル
+   * @returns 更新されたTodoList: Todo[]
+   * @remarks
+   * レンダリングルート:
+   * index.tsx -> TodoListView.tsx -> TodoCard.tsx -> EditTodoModel.tsx
+   */
 
   const updateTodoById = (todoId: number, newTitle: string) => {
     setTodoList((prevTodos) => {
@@ -45,6 +79,9 @@ export default function Home() {
     })
   }
 
+  /**
+   * サーバーからTODOリストを取得し、取得したTODOリストを状態に設定します。
+   */
   useEffect(() => {
     const GetTodosFromServer = async () => {
       const todosResponse = await GetTodos()
