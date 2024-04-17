@@ -26,10 +26,13 @@ export default function CreateNewTodoModel(props: CreateNewTodoModelProps) {
 
   const [attemptedSubmit, setAttemptedSubmit] = useState(false)
 
+  const [errorMessage, setErrorMessage] = useState('')
+
   const handleCancel = () => {
     onClickModelSwitch()
     setNewTodoTitle('')
     setAttemptedSubmit(false)
+    setErrorMessage('')
   }
 
   const handleChangeNewTodoTitle = (event: ChangeEvent<HTMLInputElement>) => {
@@ -39,21 +42,25 @@ export default function CreateNewTodoModel(props: CreateNewTodoModelProps) {
   const handleCreateTodo = async () => {
     if (newTodoTitle === '') {
       setAttemptedSubmit(true)
-    } else {
-      const request: PostTodoRequest = { title: newTodoTitle }
-      const response = await PostTodo(request)
-      if (response) {
-        const todo: Todo = {
-          id: response.id,
-          title: response.title,
-          completed: response.completed ? 1 : 0,
-        }
-        addTodoToViewList(todo)
-      }
+      return
+    }
 
+    const request: PostTodoRequest = { title: newTodoTitle }
+    const response = await PostTodo(request)
+
+    if (response && !('errorMessage' in response)) {
+      const todo: Todo = {
+        id: response.id,
+        title: response.title,
+        completed: response.completed ? 1 : 0,
+      }
+      addTodoToViewList(todo)
       onClickModelSwitch()
       setAttemptedSubmit(false)
+    } else if (response) {
+      setErrorMessage(response.errorMessage)
     }
+
     setNewTodoTitle('')
   }
 
@@ -73,6 +80,9 @@ export default function CreateNewTodoModel(props: CreateNewTodoModelProps) {
             helperText={attemptedSubmit ? 'Please input title' : ''}
           />
         </Box>
+        {errorMessage && (
+          <Box className={errorMessageBoxStyle}>{errorMessage}</Box>
+        )}
         <Box className={actionBoxStyle}>
           <Button
             onClick={handleCreateTodo}
@@ -138,3 +148,8 @@ const actionBoxStyle = `
     space-x-2 
     mt-4
   `
+
+const errorMessageBoxStyle = `
+  text-center
+  text-red-600
+`

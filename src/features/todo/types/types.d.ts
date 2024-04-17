@@ -22,3 +22,7 @@ export type PutTodoResponse = {
 export type DeleteTodoResponse = {
   message: string
 }
+
+export type errorMessage = {
+  errorMessage: string
+}
