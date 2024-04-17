@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 // Types
-import { Todo } from '@/features/todo/types/types'
+import { Todo, errorMessage } from '@/features/todo/types/types'
 
 // Icon.tsx
 import Trashicon from '@/icons/Trashicon'
@@ -19,17 +19,26 @@ interface TodoCardProps {
   todo: Todo
   deleteTodofromViewList: (todoId: number) => void
   updateTodoById: (todoId: number, newTitle: string) => void
+  getDeleteErrorMessage: (errorMessage: errorMessage) => void
 }
 
 export default function TodoCard(props: TodoCardProps) {
-  const { todo, deleteTodofromViewList, updateTodoById } = props
+  const {
+    todo,
+    deleteTodofromViewList,
+    updateTodoById,
+    getDeleteErrorMessage,
+  } = props
 
   const [mouseIsOver, setMouseIsOver] = useState(false)
 
   const onClickDelete = async (todoId: number) => {
     const response = await DeleteTodo(todoId)
-    if (response) {
+
+    if (response && !('errorMessage' in response)) {
       deleteTodofromViewList(todoId)
+    } else if (response) {
+      getDeleteErrorMessage(response)
     }
   }
 

@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 // Types
-import { Todo } from '@/features/todo/types/types'
+import { Todo, errorMessage } from '@/features/todo/types/types'
 
 // Dnd-kit
 import { DndContext } from '@dnd-kit/core'
 
 // MUI
 import { Box } from '@mui/material'
+import Snackbar from '@mui/material/Snackbar'
 
 // Componets
 import TodoCard from './TodoCard'
@@ -20,6 +21,29 @@ type TodoListViewProps = {
 
 export default function TodoListView(props: TodoListViewProps) {
   const { todoList, deleteTodofromViewList, updateTodoById } = props
+
+  const [errorMessage, setErrorMessage] = useState<errorMessage>()
+
+  const getDeleteErrorMessage = (errorMessage: errorMessage) => {
+    setErrorMessage(errorMessage)
+  }
+
+  const [snackbarOpen, setSnackbarOpen] = useState(false)
+
+  useEffect(() => {
+    setSnackbarOpen(true)
+  }, [errorMessage])
+
+  const handleSnackbarClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: string,
+  ) => {
+    if (reason === 'clickaway') {
+      return
+    }
+
+    setSnackbarOpen(false)
+  }
 
   return (
     <Box className={topBoxStyle}>
@@ -34,8 +58,23 @@ export default function TodoListView(props: TodoListViewProps) {
                 todo={todo}
                 deleteTodofromViewList={deleteTodofromViewList}
                 updateTodoById={updateTodoById}
+                getDeleteErrorMessage={getDeleteErrorMessage}
               />
             ))}
+            {errorMessage && (
+              <Box>
+                <Snackbar
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                  open={snackbarOpen}
+                  autoHideDuration={3000}
+                  onClose={handleSnackbarClose}
+                  message={errorMessage.errorMessage}
+                />
+              </Box>
+            )}
           </>
         ) : (
           <>
