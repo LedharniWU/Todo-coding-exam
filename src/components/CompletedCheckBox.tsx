@@ -10,7 +10,6 @@ import { PutTodoRequest } from '@/features/todo/types/types'
 // MUI
 import Checkbox from '@mui/material/Checkbox'
 import Box from '@mui/material/Box'
-import { withStyles } from '@mui/material'
 
 interface CompletedCheckBoxProps {
   todo: Todo
