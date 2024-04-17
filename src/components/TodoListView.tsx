@@ -13,7 +13,7 @@ import Snackbar from '@mui/material/Snackbar'
 // Componets
 import TodoCard from './TodoCard'
 
-type TodoListViewProps = {
+interface TodoListViewProps {
   todoList: Todo[]
   deleteTodofromViewList: (todoId: number) => void
   updateTodoById: (todoId: number, newTitle: string) => void
