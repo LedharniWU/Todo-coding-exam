@@ -6,11 +6,11 @@ React.js で簡易的な TODO アプリケーション
 ![demo](https://github.com/LedharniWU/Todo-coding-exam/blob/main/blob/main/image.png?raw=true)
 
 ## 環境
-Nextjs 14
-Axios 1.6.8
-MaterialUI 5.15.15
-React 18
-Tailwind-merge 2.2.2
+- Nextjs 14
+- Axios 1.6.8
+- MaterialUI 5.15.15
+- React 18
+- Tailwind-merge 2.2.2
 
 ## 仕様
 1. 登録されているタスクを⼀覧形式で表⽰することができる
