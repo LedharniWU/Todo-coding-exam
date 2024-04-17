@@ -57,6 +57,7 @@ export default function CreateNewTodoModel(props: CreateNewTodoModelProps) {
       addTodoToViewList(todo)
       onClickModelSwitch()
       setAttemptedSubmit(false)
+      setErrorMessage('')
     } else if (response) {
       setErrorMessage(response.errorMessage)
     }
@@ -150,6 +151,7 @@ const actionBoxStyle = `
   `
 
 const errorMessageBoxStyle = `
+  pt-1
   text-center
   text-red-600
 `

@@ -31,6 +31,8 @@ export default function EditTodoModel(props: EditTodoModelProps) {
 
   const [helpMessage, setHelpMessage] = useState('')
 
+  const [errorMessage, setErrorMessage] = useState('')
+
   const handleChangeNewTodoTitle = (event: ChangeEvent<HTMLInputElement>) => {
     setNewTodoTitle(event.target.value)
   }
@@ -39,29 +41,39 @@ export default function EditTodoModel(props: EditTodoModelProps) {
     if (newTodoTitle === '') {
       setAttemptedSubmit(true)
       setHelpMessage('Please input title')
-    } else if (newTodoTitle === title) {
+      return
+    }
+
+    if (newTodoTitle === title) {
       setAttemptedSubmit(true)
       setHelpMessage('Nothing To Change')
-    } else {
-      const request: PutTodoRequest = {
-        title: newTodoTitle,
-        completed: completed,
-      }
-      const response = await PutTodo(id, request)
+      return
+    }
 
-      if (response) {
-        updateTodoById(id, newTodoTitle)
-      }
+    const request: PutTodoRequest = {
+      title: newTodoTitle,
+      completed: completed,
+    }
 
+    const response = await PutTodo(id, request)
+
+    if (response && !('errorMessage' in response)) {
+      updateTodoById(id, newTodoTitle)
       onClickModelSwitch()
       setAttemptedSubmit(false)
+      setErrorMessage('')
+    } else if (response) {
+      setErrorMessage(response.errorMessage)
     }
+
+    setNewTodoTitle(newTodoTitle)
   }
 
   const handleCancel = () => {
     onClickModelSwitch()
     setNewTodoTitle(title)
     setAttemptedSubmit(false)
+    setErrorMessage('')
   }
 
   return (
@@ -78,6 +90,9 @@ export default function EditTodoModel(props: EditTodoModelProps) {
             helperText={attemptedSubmit ? helpMessage : ''}
           />
         </Box>
+        {errorMessage && (
+          <Box className={errorMessageBoxStyle}>{errorMessage}</Box>
+        )}
         <Box className={actionBoxStyle}>
           <Button onClick={handleEditTodo} variant="contained" color="primary">
             Edit
@@ -138,3 +153,8 @@ const actionBoxStyle = `
     space-x-2 
     mt-4
   `
+const errorMessageBoxStyle = `
+  pt-1
+  text-center
+  text-red-600
+`
