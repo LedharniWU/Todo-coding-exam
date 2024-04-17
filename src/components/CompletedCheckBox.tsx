@@ -30,7 +30,7 @@ export default function CompletedCheckBox(props: CompletedCheckBoxProps) {
       completed: !completed ? 1 : 0,
     }
 
-    const reponse = await PutTodo(todo.id, request)
+    await PutTodo(todo.id, request)
   }
 
   return (

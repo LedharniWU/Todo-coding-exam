@@ -3,9 +3,6 @@ import React, { useEffect, useState } from 'react'
 // Types
 import { Todo, errorMessage } from '@/features/todo/types/types'
 
-// Dnd-kit
-import { DndContext } from '@dnd-kit/core'
-
 // MUI
 import { Box } from '@mui/material'
 import Snackbar from '@mui/material/Snackbar'
