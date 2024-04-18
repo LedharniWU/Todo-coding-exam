@@ -20,7 +20,7 @@ import { Todo } from '@/features/todo/types/types'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  const [todoList, setTodoList] = useState<Todo[]>([])
+  const [todoList, setTodoList] = useState<Todo[] | undefined>(undefined)
 
   /**
    * TodoListに新しいTODOを追加して、
@@ -35,7 +35,9 @@ export default function Home() {
 
   const addTodoToViewList = (newTodo: Todo) => {
     setTodoList((prevTodos) => {
-      return [...prevTodos, newTodo]
+      // prevTodosがundefinedの場合、空の配列[]を使用する
+      const todos = prevTodos || []
+      return [...todos, newTodo]
     })
   }
 
@@ -52,7 +54,9 @@ export default function Home() {
 
   const deleteTodofromViewList = (todoId: number) => {
     setTodoList((prevTodos) => {
-      return prevTodos.filter((todo) => todo.id !== todoId)
+      // prevTodosがundefinedの場合、空の配列[]を使用する
+      const todos = prevTodos || []
+      return todos.filter((todo) => todo.id !== todoId)
     })
   }
 
@@ -70,7 +74,9 @@ export default function Home() {
 
   const updateTodoById = (todoId: number, newTitle: string) => {
     setTodoList((prevTodos) => {
-      return prevTodos.map((todo) => {
+      // prevTodosがundefinedの場合、空の配列[]を使用する
+      const todos = prevTodos || []
+      return todos.map((todo) => {
         if (todo.id === todoId) {
           return { ...todo, title: newTitle }
         }
